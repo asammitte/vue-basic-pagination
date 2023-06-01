@@ -10,6 +10,22 @@ function pageSelected(pageIndex: number): void {
   </header>
 
   <main>
-    <BasicPagination :page-count="32" />
+    <router-view />
+    <BasicPagination :page-count="58">
+      <template v-slot:firstButtonContent>
+        <router-link :to="{ path: '' }">F I R S T</router-link>
+      </template>
+      <template v-slot:breakViewContent>
+        ..!..
+      </template>
+      <template v-slot:pageContent="slotProps">
+        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
+          {{ slotProps.pageNumber }}
+        </router-link>
+      </template>
+      <template v-slot:lastButtonContent="slotProps">
+        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">L A S T</router-link>
+      </template>
+    </BasicPagination>
   </main>
 </template>

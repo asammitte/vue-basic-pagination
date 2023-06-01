@@ -8,9 +8,11 @@
         <span
           :class="pageLinkClass"
           :tabindex="firstPageSelected ? -1 : 0"
-          @click="pageSelected(0)"
+          @click="pageSelected(1)"
         >
-          {{ firstButtonText }}
+          <slot name="firstButtonContent">
+            {{ firstButtonText }}
+          </slot>
         </span>
       </li>
 
@@ -31,42 +33,46 @@
         </span>
       </li>
 
-      <template v-for="(page, index) in pages">
-        <li
-          v-if="page"
-          :key="index"
-          :class="[
-            pageClass,
-            page.selected ? activeClass : '',
-            page.disabled ? disabledClass : '',
-            page.breakView ? breakViewClass : ''
-          ]"
+      <li
+        v-for="(page, index) in pages"
+        :key="index"
+        :class="[
+          pageClass,
+          page.selected ? activeClass : '',
+          page.disabled ? disabledClass : '',
+          page.breakView ? breakViewClass : ''
+        ]"
+      >
+        <span
+          v-if="page.breakView"
+          :class="[pageLinkClass, breakViewLinkClass]"
+          tabindex="0"
         >
-          <span
-            v-if="page.breakView"
-            :class="[pageLinkClass, breakViewLinkClass]"
-            tabindex="0"
-          >
-            <slot name="breakViewContent">
-              {{ breakViewText }}
-            </slot>
-          </span>
-          <span v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">
+          <slot name="breakViewContent">
+            {{ breakViewText }}
+          </slot>
+        </span>
+        <!-- <span v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">
+          <slot name="currentPageContent">
+            {{ page.content }} ! P A R C
+          </slot>
+        </span> -->
+        <span
+          v-else-if="!page.selected"
+          :class="pageLinkClass"
+          tabindex="0"
+          @click="pageSelected(page.index! + 1)"
+        >
+          <slot name="pageContent" :pageNumber="page.content">
             {{ page.content }}
-          </span>
-          <span
-            v-else-if="!page.selected"
-            :class="pageLinkClass"
-            tabindex="0"
-            @click="pageSelected(page.index! + 1)"
-          >
+          </slot>
+        </span>
+        <span v-else :class="pageLinkClass" tabindex="0">
+          <slot name="currentPageContent" :pageNumber="page.content">
             {{ page.content }}
-          </span>
-          <span v-else :class="pageLinkClass" tabindex="0">
-            {{ page.content }}
-          </span>
-        </li>
-      </template>
+          </slot>
+        </span>
+      </li>
 
       <li
         v-if="!(lastPageSelected && hidePrevNext)"
@@ -94,7 +100,9 @@
           :tabindex="lastPageSelected ? -1 : 0"
           @click="pageSelected(selectLastPage)"
         >
-          {{ lastButtonText }}
+          <slot name="lastButtonContent" :pageNumber="selectLastPage">
+            {{ lastButtonText }}
+          </slot>
         </span>
       </li>
     </ul>
@@ -104,11 +112,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-interface IPaginationProps {
+export interface IPaginationProps {
   pageCount: number
+  selectedPage?: number
   pageRange?: number
   marginPages?: number
-  isHr?: boolean
   prevText?: string
   nextText?: string
   breakViewText?: string
@@ -138,6 +146,7 @@ interface IPageItem {
 }
 
 const props = withDefaults(defineProps<IPaginationProps>(), {
+  selectedPage: 1,
   pageRange: 5,
   marginPages: 1,
   prevText: '<',
@@ -161,7 +170,7 @@ const props = withDefaults(defineProps<IPaginationProps>(), {
 })
 
 const emit = defineEmits(['pageSelected'])
-const selected = ref(1)
+const selected = ref(props.selectedPage)
 
 // const selected = computed(() => {
 //   // return route.query ? +route.query.page : 1
@@ -298,7 +307,7 @@ function pageSelected(index: number): void {
   color: #000000;
 }
 
-.c-pagination li a,
+/* .c-pagination li a, */
 .c-pagination li span {
   outline: 0;
   cursor: pointer;
