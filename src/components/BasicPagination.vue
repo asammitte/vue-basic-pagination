@@ -152,7 +152,7 @@ const props = withDefaults(defineProps<IPaginationProps>(), {
   prevText: '<',
   nextText: '>',
   breakViewText: '…',
-  containerClass: 'pagination c-pagination',
+  containerClass: 'vue3-basic-pagination',
   pageClass: 'page-item',
   pageLinkClass: '',
   prevClass: '',
@@ -299,16 +299,16 @@ function pageSelected(index: number): void {
 </script>
 
 <style>
-.c-pagination {
+.vue3-basic-pagination {
   text-align: center;
 }
-.c-pagination li {
+.vue3-basic-pagination li {
   display: inline-block;
   color: #000000;
 }
 
 /* .c-pagination li a, */
-.c-pagination li span {
+.vue3-basic-pagination li span {
   outline: 0;
   cursor: pointer;
   padding-left: 12px;
@@ -316,19 +316,19 @@ function pageSelected(index: number): void {
   text-decoration: none;
 }
 
-.c-pagination li.disabled a,
-.c-pagination li.disabled span {
+.vue3-basic-pagination li.disabled a,
+.vue3-basic-pagination li.disabled span {
   cursor: not-allowed;
 }
 
-/* .c-pagination li:last-child a:after,
-.c-pagination li:last-child span:after {
+/* .vue3-basic-pagination li:last-child a:after,
+.vue3-basic-pagination li:last-child span:after {
   content: '\25BA';
   display: inline;
 }
 
-.c-pagination li:first-child a:before,
-.c-pagination li:first-child span:before {
+.vue3-basic-pagination li:first-child a:before,
+.vue3-basic-pagination li:first-child span:before {
   content: '\25c4';
   display: inline;
 } */
@@ -358,7 +358,7 @@ function pageSelected(index: number): void {
   }
 } */
 
-.c-pagination .active-page span {
+.vue3-basic-pagination .active-page span {
   color: #ff3860;
   font-weight: bold;
 }
