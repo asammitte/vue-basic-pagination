@@ -2,8 +2,8 @@
   <div v-if="pageCount > 1">
     <ul :class="containerClass">
       <li
-        v-if="firstLastButton"
-        :class="[pageClass, firstPageSelected ? disabledClass : '']"
+        v-if="showFirstLastButtons"
+        :class="[firstItemClass, pageClass, firstPageSelected ? disabledClass : '']"
       >
         <span
           :class="pageLinkClass"
@@ -11,25 +11,28 @@
           @click="pageSelected(1)"
         >
           <slot name="firstButtonContent">
-            {{ firstButtonText }}
+            &lt;&lt;
           </slot>
         </span>
       </li>
 
       <li
-        v-if="!(firstPageSelected && hidePrevNext)"
-        :class="[prevClass, firstPageSelected ? disabledClass : '']"
+        v-if="showPrevNextButtons"
+        :class="[prevItemClass, firstPageSelected ? disabledClass : '']"
       >
-        <span v-if="firstPageSelected" :class="prevLinkClass" :tabindex="-1">
-          <span class="tablet-hide">{{ getPrevText }}</span>
+        <span v-if="firstPageSelected" :tabindex="-1">
+          <slot name="prevButtonContent">
+            &lt;
+          </slot>
         </span>
         <span
           v-else
-          :class="prevLinkClass"
           :tabindex="firstPageSelected ? -1 : 0"
           @click="pageSelected(prevPage)"
         >
-          <span class="tablet-hide">{{ getPrevText }}</span>
+          <slot name="prevButtonContent">
+            &lt;
+          </slot>
         </span>
       </li>
 
@@ -45,18 +48,13 @@
       >
         <span
           v-if="page.breakView"
-          :class="[pageLinkClass, breakViewLinkClass]"
+          :class="[pageLinkClass]"
           tabindex="0"
         >
           <slot name="breakViewContent">
-            {{ breakViewText }}
+            …
           </slot>
         </span>
-        <!-- <span v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">
-          <slot name="currentPageContent">
-            {{ page.content }} ! P A R C
-          </slot>
-        </span> -->
         <span
           v-else-if="!page.selected"
           :class="pageLinkClass"
@@ -75,25 +73,28 @@
       </li>
 
       <li
-        v-if="!(lastPageSelected && hidePrevNext)"
-        :class="[nextClass, lastPageSelected ? disabledClass : '']"
+        v-if="showPrevNextButtons"
+        :class="[nextItemClass, lastPageSelected ? disabledClass : '']"
       >
         <span
           v-if="!lastPageSelected"
-          :class="nextLinkClass"
           :tabindex="lastPageSelected ? -1 : 0"
           @click="pageSelected(nextPage)"
         >
-          <span class="tablet-hide">{{ getNextText }}</span>
+          <slot name="nextButtonContent">
+            &gt;
+          </slot>
         </span>
-        <span v-else :class="nextLinkClass" :tabindex="-1">
-          <span class="tablet-hide">{{ getNextText }}</span>
+        <span v-else :tabindex="-1">
+          <slot name="nextButtonContent">
+            &gt;
+          </slot>
         </span>
       </li>
 
       <li
-        v-if="firstLastButton"
-        :class="[pageClass, lastPageSelected ? disabledClass : '']"
+        v-if="showFirstLastButtons"
+        :class="[lastItemClass, pageClass, lastPageSelected ? disabledClass : '']"
       >
         <span
           :class="pageLinkClass"
@@ -101,7 +102,7 @@
           @click="pageSelected(selectLastPage)"
         >
           <slot name="lastButtonContent" :pageNumber="selectLastPage">
-            {{ lastButtonText }}
+            &gt;&gt;
           </slot>
         </span>
       </li>
@@ -117,24 +118,18 @@ export interface IPaginationProps {
   selectedPage?: number
   pageRange?: number
   marginPages?: number
-  prevText?: string
-  nextText?: string
-  breakViewText?: string
   containerClass?: string
+  firstItemClass?: string
+  lastItemClass?: string
   pageClass?: string
   pageLinkClass?: string
-  prevClass?: string
-  prevLinkClass?: string
-  nextClass?: string
-  nextLinkClass?: string
+  prevItemClass?: string
+  nextItemClass?: string
   breakViewClass?: string
-  breakViewLinkClass?: string
   activeClass?: string
   disabledClass?: string
-  firstLastButton?: boolean
-  firstButtonText?: string
-  lastButtonText?: string
-  hidePrevNext?: boolean
+  showFirstLastButtons?: boolean
+  showPrevNextButtons?: boolean
 }
 
 interface IPageItem {
@@ -149,33 +144,22 @@ const props = withDefaults(defineProps<IPaginationProps>(), {
   selectedPage: 1,
   pageRange: 5,
   marginPages: 1,
-  prevText: '<',
-  nextText: '>',
-  breakViewText: '…',
   containerClass: 'vue3-basic-pagination',
+  firstItemClass: 'first-item',
+  lastItemClass: 'last-item',
   pageClass: 'page-item',
-  pageLinkClass: '',
-  prevClass: '',
-  prevLinkClass: '',
-  nextClass: '',
-  nextLinkClass: '',
-  breakViewClass: '',
-  breakViewLinkClass: '',
+  pageLinkClass: 'page-item-link',
+  prevItemClass: 'prev-item',
+  nextItemClass: 'next-item',
+  breakViewClass: 'break-item',
   activeClass: 'active-page',
   disabledClass: 'disabled',
-  firstLastButton: true,
-  firstButtonText: 'First',
-  lastButtonText: 'Last',
-  hidePrevNext: false
+  showFirstLastButtons: true,
+  showPrevNextButtons: true
 })
 
 const emit = defineEmits(['pageSelected'])
 const selected = ref(props.selectedPage)
-
-// const selected = computed(() => {
-//   // return route.query ? +route.query.page : 1
-//   return 1
-// })
 
 const pages = computed<IPageItem[]>(() => {
   const items: any = {}
@@ -254,7 +238,6 @@ const pages = computed<IPageItem[]>(() => {
       setPageItem(i)
     }
   }
-  console.log(items)
   return items
 })
 
@@ -284,14 +267,6 @@ const selectLastPage = computed(() => {
   return props.pageCount
 })
 
-const getPrevText = computed(() => {
-  return props.prevText // || this.$t('pagination.prev')
-})
-
-const getNextText = computed(() => {
-  return props.nextText // || this.$t('pagination.next')
-})
-
 function pageSelected(index: number): void {
   selected.value = index
   emit('pageSelected', index)
@@ -302,6 +277,7 @@ function pageSelected(index: number): void {
 .vue3-basic-pagination {
   text-align: center;
 }
+
 .vue3-basic-pagination li {
   display: inline-block;
   color: #000000;

@@ -11,7 +11,7 @@ function pageSelected(pageIndex: number): void {
 
   <main>
     <router-view />
-    <BasicPagination :page-count="58">
+    <BasicPagination :page-count="9" :selected-page="5">
       <template v-slot:firstButtonContent>
         <router-link :to="{ path: '' }">F I R S T</router-link>
       </template>
