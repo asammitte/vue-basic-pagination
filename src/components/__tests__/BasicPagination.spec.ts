@@ -17,22 +17,22 @@ describe('BasicPagination', () => {
     expect(wrapper.find('.vue3-basic-pagination').exists()).toBe(expected)
   })
 
-  it('If pageCount > 1 render item with .active-page class', async () => {
+  it('If pageCount > 1 render item with .active-item class', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
         pageCount: 2
       }
     })
-    expect(wrapper.find('.active-page').exists()).toBe(true)
+    expect(wrapper.find('.active-item').exists()).toBe(true)
   })
 
-  it('If pageCount > 1 and showFirstLastButtons = true, .first-item should have .disabled class', async () => {
+  it('If pageCount > 1 and showFirstLastButtons = true, .first-item should have .disabled-item class', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
         pageCount: 2
       }
     })
-    expect(wrapper.find('.first-item.disabled').exists()).toBe(true)
+    expect(wrapper.find('.first-item.disabled-item').exists()).toBe(true)
   })
 
   it('If pageCount > 1 and showFirstLastButtons = true - render .first-item class', async () => {
