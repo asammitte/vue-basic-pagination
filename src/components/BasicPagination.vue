@@ -6,7 +6,7 @@
         :class="[firstItemClass, pageClass, firstPageSelected ? disabledClass : '']"
       >
         <span
-          :class="pageLinkClass"
+          :class="[pageLinkClass, firstItemLinkClass]"
           :tabindex="firstPageSelected ? -1 : 0"
           @click="pageSelected(1)"
         >
@@ -18,15 +18,20 @@
 
       <li
         v-if="showPrevNextButtons"
-        :class="[prevItemClass, firstPageSelected ? disabledClass : '']"
+        :class="[pageClass, prevItemClass, firstPageSelected ? disabledClass : '']"
       >
-        <span v-if="firstPageSelected" :tabindex="-1">
+        <span
+          v-if="firstPageSelected"
+          :class="[pageLinkClass, prevItemLinkClass]"
+          :tabindex="-1"
+        >
           <slot name="prevButtonContent">
             &lt;
           </slot>
         </span>
         <span
           v-else
+          :class="[pageLinkClass, prevItemLinkClass]"
           :tabindex="firstPageSelected ? -1 : 0"
           @click="pageSelected(prevPage)"
         >
@@ -48,7 +53,7 @@
       >
         <span
           v-if="page.breakView"
-          :class="[pageLinkClass]"
+          :class="[pageLinkClass, breakViewLinkClass]"
           tabindex="0"
         >
           <slot name="breakViewContent">
@@ -74,10 +79,11 @@
 
       <li
         v-if="showPrevNextButtons"
-        :class="[nextItemClass, lastPageSelected ? disabledClass : '']"
+        :class="[pageClass, nextItemClass, lastPageSelected ? disabledClass : '']"
       >
         <span
           v-if="!lastPageSelected"
+          :class="[pageLinkClass, nextItemLinkClass]"
           :tabindex="lastPageSelected ? -1 : 0"
           @click="pageSelected(nextPage)"
         >
@@ -85,7 +91,11 @@
             &gt;
           </slot>
         </span>
-        <span v-else :tabindex="-1">
+        <span
+          v-else
+          :class="[pageLinkClass, nextItemLinkClass]"
+          :tabindex="-1"
+        >
           <slot name="nextButtonContent">
             &gt;
           </slot>
@@ -97,7 +107,7 @@
         :class="[lastItemClass, pageClass, lastPageSelected ? disabledClass : '']"
       >
         <span
-          :class="pageLinkClass"
+          :class="[pageLinkClass, lastItemLinkClass]"
           :tabindex="lastPageSelected ? -1 : 0"
           @click="pageSelected(selectLastPage)"
         >
@@ -118,18 +128,23 @@ export interface IPaginationProps {
   selectedPage?: number
   pageRange?: number
   marginPages?: number
-  containerClass?: string
-  firstItemClass?: string
-  lastItemClass?: string
-  pageClass?: string
-  pageLinkClass?: string
-  prevItemClass?: string
-  nextItemClass?: string
-  breakViewClass?: string
-  activeClass?: string
-  disabledClass?: string
   showFirstLastButtons?: boolean
   showPrevNextButtons?: boolean
+  containerClass?: string
+  pageClass?: string
+  pageLinkClass?: string
+  firstItemClass?: string
+  firstItemLinkClass?: string
+  lastItemClass?: string
+  lastItemLinkClass?: string
+  prevItemClass?: string
+  prevItemLinkClass?: string
+  nextItemClass?: string
+  nextItemLinkClass?: string
+  breakViewClass?: string
+  breakViewLinkClass?: string
+  activeClass?: string
+  disabledClass?: string
 }
 
 interface IPageItem {
@@ -144,18 +159,23 @@ const props = withDefaults(defineProps<IPaginationProps>(), {
   selectedPage: 1,
   pageRange: 5,
   marginPages: 1,
-  containerClass: 'vue3-basic-pagination',
-  firstItemClass: 'first-item',
-  lastItemClass: 'last-item',
-  pageClass: 'page-item',
-  pageLinkClass: 'page-item-link',
-  prevItemClass: 'prev-item',
-  nextItemClass: 'next-item',
-  breakViewClass: 'break-item',
-  activeClass: 'active-page',
-  disabledClass: 'disabled',
   showFirstLastButtons: true,
-  showPrevNextButtons: true
+  showPrevNextButtons: true,
+  containerClass: 'vue3-basic-pagination',
+  pageClass: 'page-item',
+  pageLinkClass: 'page-link',
+  firstItemClass: '',
+  firstItemLinkClass: '',
+  lastItemClass: '',
+  lastItemLinkClass: '',
+  prevItemClass: '',
+  prevItemLinkClass: '',
+  nextItemClass: '',
+  nextItemLinkClass: '',
+  breakViewClass: '',
+  breakViewLinkClass: '',
+  activeClass: '',
+  disabledClass: 'disabled-item'
 })
 
 const emit = defineEmits(['pageSelected'])
@@ -278,13 +298,13 @@ function pageSelected(index: number): void {
   text-align: center;
 }
 
-.vue3-basic-pagination li {
+.vue3-basic-pagination .page-item {
   display: inline-block;
   color: #000000;
 }
 
 /* .c-pagination li a, */
-.vue3-basic-pagination li span {
+.vue3-basic-pagination .page-item .page-link {
   outline: 0;
   cursor: pointer;
   padding-left: 12px;
@@ -292,8 +312,7 @@ function pageSelected(index: number): void {
   text-decoration: none;
 }
 
-.vue3-basic-pagination li.disabled a,
-.vue3-basic-pagination li.disabled span {
+.vue3-basic-pagination .disabled-item .page-link {
   cursor: not-allowed;
 }
 
@@ -334,8 +353,8 @@ function pageSelected(index: number): void {
   }
 } */
 
-.vue3-basic-pagination .active-page span {
+/* .vue3-basic-pagination .active-page span {
   color: #ff3860;
   font-weight: bold;
-}
+} */
 </style>
