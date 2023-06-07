@@ -1,7 +1,7 @@
 <template>
   <div v-if="pageCount > 1">
-    <ul :class="containerClass">
-      <li
+    <div :class="containerClass">
+      <div
         v-if="showFirstLastButtons"
         :class="[firstItemClass, pageClass, firstPageSelected ? disabledClass : '']"
       >
@@ -14,9 +14,9 @@
             &lt;&lt;
           </slot>
         </span>
-      </li>
+      </div>
 
-      <li
+      <div
         v-if="showPrevNextButtons"
         :class="[pageClass, prevItemClass, firstPageSelected ? disabledClass : '']"
       >
@@ -39,9 +39,9 @@
             &lt;
           </slot>
         </span>
-      </li>
+      </div>
 
-      <li
+      <div
         v-for="(page, index) in pages"
         :key="index"
         :class="[
@@ -75,9 +75,9 @@
             {{ page.content }}
           </slot>
         </span>
-      </li>
+      </div>
 
-      <li
+      <div
         v-if="showPrevNextButtons"
         :class="[pageClass, nextItemClass, lastPageSelected ? disabledClass : '']"
       >
@@ -100,9 +100,9 @@
             &gt;
           </slot>
         </span>
-      </li>
+      </div>
 
-      <li
+      <div
         v-if="showFirstLastButtons"
         :class="[lastItemClass, pageClass, lastPageSelected ? disabledClass : '']"
       >
@@ -115,8 +115,8 @@
             &gt;&gt;
           </slot>
         </span>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -301,6 +301,10 @@ function pageSelected(index: number): void {
 .vue3-basic-pagination .page-item {
   display: inline-block;
   color: #000000;
+}
+
+.vue3-basic-pagination .active-item {
+  font-weight: bolder;
 }
 
 /* .c-pagination li a, */

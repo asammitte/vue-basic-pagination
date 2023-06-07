@@ -24,11 +24,11 @@ function customFunc(pageIndex: number): void {
       <template v-slot:breakViewContent>
         ..!..
       </template>
-      <!-- <template v-slot:pageContent="slotProps">
+      <template v-slot:pageContent="slotProps">
         <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
           {{ slotProps.pageNumber }}
         </router-link>
-      </template> -->
+      </template>
       <template v-slot:lastButtonContent="slotProps">
         <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">L A S T</router-link>
       </template>
