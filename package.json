@@ -1,6 +1,6 @@
 {
   "name": "vue3-basic-pagination",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "author": "Kostiantyn Pavlichenko",
   "description": "Vue3 pagination component.",
   "type": "module",
