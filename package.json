@@ -1,6 +1,6 @@
 {
   "name": "vue3-basic-pagination",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
