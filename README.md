@@ -1,13 +1,11 @@
 # vue3-plain-pagination
 
+[![NPM version](https://badgen.net/npm/v/vue3-basic-pagination)](https://www.npmjs.com/package/vue3-basic-pagination)
 ![tests](https://github.com/asammitte/vue3-basic-pagination/actions/workflows/test.yml/badge.svg)
-<a href="https://www.npmjs.com/package/vue3-basic-pagination">
-<img src="https://img.shields.io/npm/v/vue3-basic-pagination.svg" alt="npm">
-</a>
+[![codecov](https://codecov.io/gh/asammitte/vue3-basic-pagination/branch/main/graph/badge.svg)](https://codecov.io/gh/asammitte/vue3-basic-pagination)
+[![NPM downloads](https://badgen.net/npm/dm/vue3-basic-pagination)](https://www.npmjs.com/package/vue3-basic-pagination)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-<!-- <a href="LICENSE">
-<img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT">
-</a> -->
+
 
 [![vue](https://badges.aleen42.com/src/vue.svg)](https://badges.aleen42.com/src/vue.svg)
 [![javascript](https://badges.aleen42.com/src/javascript.svg)](https://badges.aleen42.com/src/javascript.svg)

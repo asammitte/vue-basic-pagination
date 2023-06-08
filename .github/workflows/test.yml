@@ -15,14 +15,17 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
           cache: 'npm'
+          node-version-file: .nvmrc
+
       - name: Install dependencies
         run: npm install
+
+      - name: Lint JavaScript files
+        run: npm run lint
 
       - name: Run unit tests
         run: npm run test:unit
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v3
-
