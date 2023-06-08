@@ -1,6 +1,8 @@
 {
   "name": "vue3-basic-pagination",
   "version": "0.0.17",
+  "author": "Kostiantyn Pavlichenko",
+  "description": "Vue3 pagination component.",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -17,6 +19,18 @@
   "license": "Apache-2.0",
   "files": [
     "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asammitte/vue3-basic-pagination"
+  },
+  "bugs": {
+    "url": "https://github.com/asammitte/vue3-basic-pagination/issues"
+  },
+  "keywords": [
+    "vue3-basic-pagination",
+    "vue",
+    "pagination"
   ],
   "scripts": {
     "build": "run-p type-check build-only",

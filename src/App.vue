@@ -16,7 +16,13 @@ function customFunc(pageIndex: number): void {
 
   <main>
     <router-view />
-    <BasicPagination :page-count="9" :selected-page="5" @pageSelected="customFunc">
+    <BasicPagination
+      :page-count="7"
+      :selected-page="5"
+      :page-range="3"
+      :margin-pages="3"
+      @pageSelected="customFunc"
+    >
       <template v-slot:firstButtonContent>
         <!-- <router-link :to="{ path: '' }">F I R S T</router-link> -->
         F I R S T

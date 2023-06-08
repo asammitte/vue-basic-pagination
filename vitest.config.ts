@@ -9,7 +9,7 @@ export default mergeConfig(
     test: {
       coverage: {
         provider: 'istanbul',
-        reporter: ['text', 'json'],
+        reporter: ['html', 'text', 'json'],
       },
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],
