@@ -1,7 +1,7 @@
 <template>
   <div v-if="pageCount > 1">
-    <div :class="containerClass">
-      <div
+    <ul :class="containerClass">
+      <li
         v-if="showFirstLastButtons"
         :class="[firstItemClass, pageClass, firstPageSelected ? disabledClass : '']"
       >
@@ -14,9 +14,9 @@
             &lt;&lt;
           </slot>
         </span>
-      </div>
+      </li>
 
-      <div
+      <li
         v-if="showPrevNextButtons"
         :class="[pageClass, prevItemClass, firstPageSelected ? disabledClass : '']"
       >
@@ -35,13 +35,13 @@
           :tabindex="firstPageSelected ? -1 : 0"
           @click="pageSelected(prevPage)"
         >
-          <slot name="prevButtonContent">
+          <slot name="prevButtonContent" :pageNumber="prevPage">
             &lt;
           </slot>
         </span>
-      </div>
+      </li>
 
-      <div
+      <li
         v-for="(page, index) in pages"
         :key="index"
         :class="[
@@ -75,9 +75,9 @@
             {{ page.content }}
           </slot>
         </span>
-      </div>
+      </li>
 
-      <div
+      <li
         v-if="showPrevNextButtons"
         :class="[pageClass, nextItemClass, lastPageSelected ? disabledClass : '']"
       >
@@ -87,7 +87,7 @@
           :tabindex="lastPageSelected ? -1 : 0"
           @click="pageSelected(nextPage)"
         >
-          <slot name="nextButtonContent">
+          <slot name="nextButtonContent" :pageNumber="nextPage">
             &gt;
           </slot>
         </span>
@@ -100,9 +100,9 @@
             &gt;
           </slot>
         </span>
-      </div>
+      </li>
 
-      <div
+      <li
         v-if="showFirstLastButtons"
         :class="[lastItemClass, pageClass, lastPageSelected ? disabledClass : '']"
       >
@@ -115,8 +115,8 @@
             &gt;&gt;
           </slot>
         </span>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -258,6 +258,7 @@ const pages = computed<IPageItem[]>(() => {
       setPageItem(i)
     }
   }
+  console.log(items)
   return items
 })
 

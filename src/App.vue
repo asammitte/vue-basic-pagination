@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute()
 const router = useRouter()
 
-function customFunc(pageIndex: number): void {
+const customFunc = (pageIndex: number): void => {
   const query = { ...route.query, ...{ page: pageIndex } }
   router.push({ name: '', query: query })
 }
@@ -18,25 +18,41 @@ function customFunc(pageIndex: number): void {
     <router-view />
     <BasicPagination
       :page-count="7"
-      :selected-page="5"
+      :selected-page="1"
       :page-range="3"
       :margin-pages="3"
       @pageSelected="customFunc"
     >
       <template v-slot:firstButtonContent>
-        <!-- <router-link :to="{ path: '' }">F I R S T</router-link> -->
-        F I R S T
+        <router-link :to="{ path: '' }">
+          F I R S T
+        </router-link>
+      </template>
+      <template v-slot:prevButtonContent="slotProps">
+        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
+          P R E V
+        </router-link>
       </template>
       <template v-slot:breakViewContent>
-        ..!..
+        ---
       </template>
       <template v-slot:pageContent="slotProps">
         <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
-          {{ slotProps.pageNumber }}
+          p {{ slotProps.pageNumber }}
+        </router-link>
+      </template>
+      <template v-slot:currentPageContent="slotProps">
+        &gt;&gt; {{ slotProps.pageNumber }} &lt;&lt;
+      </template>
+      <template v-slot:nextButtonContent="slotProps">
+        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
+          N E X T
         </router-link>
       </template>
       <template v-slot:lastButtonContent="slotProps">
-        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">L A S T</router-link>
+        <router-link :to="{ name: '', query: { page: slotProps.pageNumber } }">
+          L A S T
+        </router-link>
       </template>
     </BasicPagination>
   </main>
