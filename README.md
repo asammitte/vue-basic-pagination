@@ -15,11 +15,6 @@
 [![vitejs](https://badges.aleen42.com/src/vitejs.svg)](https://badges.aleen42.com/src/vitejs.svg)
 [![rollup](https://badges.aleen42.com/src/rollup.svg)](https://badges.aleen42.com/src/rollup.svg)
 
-<!-- [![npm version](https://badge.fury.io/js/vuejs-paginate-next.svg)](https://badge.fury.io/js/vuejs-paginate-next) -->
-<!-- [![npm](https://nodei.co/npm/vuejs-paginate-next.png)](https://nodei.co/npm/vuejs-paginate-next/) -->
-
-<!-- <img src="https://raw.githubusercontent.com/cloudeep/vuejs-paginate-next/main/public/vuejs-paginate-next.gif" width="550"/> -->
-
 Simple pagination component for Vue3 / Nuxt3. Can be easily customized via css and/or slots.
 
 ## Installation
