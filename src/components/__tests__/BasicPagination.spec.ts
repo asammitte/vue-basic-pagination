@@ -61,17 +61,7 @@ describe('BasicPagination', () => {
     expect(wrapper.find('.last-link').exists()).toBe(false)
   })
 
-  it('If pageCount > 1 and showFirstLastButtons = false - do not render .last-page-item class', async () => {
-    const wrapper = mount(BasicPagination, {
-      props: {
-        pageCount: 2,
-        showFirstLastButtons: false
-      }
-    })
-    expect(wrapper.find('.last-page-item').exists()).toBe(false)
-  })
-
-  it('If pageCount > 1 and showPrevNextButtons = false - do not render .prev-item class', async () => {
+  it('If pageCount > 1 and showPrevNextButtons = false - do not render .prev-item and .next-item classes', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
         pageCount: 2,
@@ -79,9 +69,10 @@ describe('BasicPagination', () => {
       }
     })
     expect(wrapper.find('.prev-item').exists()).toBe(false)
+    expect(wrapper.find('.next-item').exists()).toBe(false)
   })
 
-  it('If pageCount > 1 and showPrevNextButtons = true - render .prev-item class', async () => {
+  it('If pageCount > 1 and showPrevNextButtons = true - render .prev-item and next-item classes', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
         pageCount: 2,
@@ -89,6 +80,7 @@ describe('BasicPagination', () => {
       }
     })
     expect(wrapper.find('.prev-item').exists()).toBe(true)
+    expect(wrapper.find('.next-item').exists()).toBe(true)
   })
 
   it('If pageCount > 1 and showPrevNextButtons = false - do not render .next-item class', async () => {
