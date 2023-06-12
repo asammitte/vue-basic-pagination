@@ -83,26 +83,6 @@ describe('BasicPagination', () => {
     expect(wrapper.find('.next-item').exists()).toBe(true)
   })
 
-  it('If pageCount > 1 and showPrevNextButtons = false - do not render .next-item class', async () => {
-    const wrapper = mount(BasicPagination, {
-      props: {
-        pageCount: 2,
-        showPrevNextButtons: false
-      }
-    })
-    expect(wrapper.find('.next-item').exists()).toBe(false)
-  })
-
-  it('If pageCount > 1 and showPrevNextButtons = true - render .next-item class', async () => {
-    const wrapper = mount(BasicPagination, {
-      props: {
-        pageCount: 2,
-        showPrevNextButtons: true
-      }
-    })
-    expect(wrapper.find('.next-item').exists()).toBe(true)
-  })
-
   it('If pageCount >= 9 and selectedPage = 5 - render one element with .break-item class', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
