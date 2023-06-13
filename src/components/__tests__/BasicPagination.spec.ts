@@ -83,7 +83,7 @@ describe('BasicPagination', () => {
     expect(wrapper.find('.next-item').exists()).toBe(true)
   })
 
-  it('If pageCount >= 9 and selectedPage = 5 - render one element with .break-item class', async () => {
+  it('If pageCount >= 9 and selectedPage = 5 - render element with .break-item class', async () => {
     const wrapper = mount(BasicPagination, {
       props: {
         pageCount: 9,
@@ -91,6 +91,7 @@ describe('BasicPagination', () => {
       }
     })
     expect(wrapper.findAll('.break-item').length).toBe(1)
+    expect(wrapper.find('.break-item').text().includes('…')).toBe(true)
   })
 
   it('If pageCount >= 9 and selectedPage = 5 - render two elements with .break-item class', async () => {
@@ -101,15 +102,5 @@ describe('BasicPagination', () => {
       }
     })
     expect(wrapper.findAll('.break-item').length).toBe(2)
-  })
-
-  it('If pageCount >= 9 and selectedPage = 1 - render one element with content `…`', async () => {
-    const wrapper = mount(BasicPagination, {
-      props: {
-        pageCount: 9,
-        selectedPage: 1
-      }
-    })
-    expect(wrapper.find('.break-item').text().includes('…')).toBe(true)
   })
 })
