@@ -320,46 +320,4 @@ function pageSelected(index: number): void {
 .vue3-basic-pagination .disabled-item .page-link {
   cursor: not-allowed;
 }
-
-/* .vue3-basic-pagination li:last-child a:after,
-.vue3-basic-pagination li:last-child span:after {
-  content: '\25BA';
-  display: inline;
-}
-
-.vue3-basic-pagination li:first-child a:before,
-.vue3-basic-pagination li:first-child span:before {
-  content: '\25c4';
-  display: inline;
-} */
-
-/* @include breakpoint($tablet down) {
-  a {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  &:first-child {
-    a {
-      padding: 0;
-    }
-  }
-
-  &:last-child a {
-    padding: 0;
-  }
-
-  &.disabled {
-    padding: 0;
-
-    a {
-      padding: 0;
-    }
-  }
-} */
-
-/* .vue3-basic-pagination .active-page span {
-  color: #ff3860;
-  font-weight: bold;
-} */
 </style>
